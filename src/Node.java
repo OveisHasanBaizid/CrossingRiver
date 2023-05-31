@@ -18,6 +18,11 @@ public class Node {
         fatherNode = null;
     }
 
+    public Node(Node fatherNode, boolean[] state) {
+        this.fatherNode = fatherNode;
+        this.state = state;
+    }
+
     public boolean equals(Node node) {
         for (int i = 0; i < 9; i++) {
             if (state[i] != node.state[i])

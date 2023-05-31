@@ -25,8 +25,38 @@ public class SearchAlgorithm {
         return node.isGoal();
     }
 
-    private LinkedList<Node> generateChildren(Node node) {
-        return new LinkedList<>();
+    private LinkedList<Node> generateChildren(Node node){
+        Node sampleNode;
+        boolean[] state = new boolean[9];
+
+        LinkedList<Node> children = new LinkedList<>();
+
+        for (int i = 1; i < 9; i++) {
+            for (int j = i; j < 9; j++) {
+                if (state[0]) {
+                    if (state[i] && state[j]) {
+                        state[0] = false;
+                        state[i] = false;
+                        state[j] = false;
+                        sampleNode = new Node(node,state);
+                        if (isValid(sampleNode))
+                            children.add(sampleNode);
+                        state = new boolean[9];
+                    }
+                } else {
+                    if (!state[i] && !state[j]) {
+                        state[0] = true;
+                        state[i] = true;
+                        state[j] = true;
+                        sampleNode = new Node(node,state);
+                        if (isValid(sampleNode))
+                            children.add(sampleNode);
+                        state = new boolean[9];
+                    }
+                }
+            }
+        }
+        return children;
     }
 
     public Node search(Node startNode) {
